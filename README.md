@@ -1,6 +1,6 @@
 # Instalación del proyecto
 
-Este proyecto utiliza **Laravel**, **Composer**, **Node.js**, **NPM**, **Vue.js** y **Axios**.
+Este proyecto utiliza **Laravel**, **Composer**, **Node.js**, **NPM** y **Axios**.
 
 ## Requisitos
 
