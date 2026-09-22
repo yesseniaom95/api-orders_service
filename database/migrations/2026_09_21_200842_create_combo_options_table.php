@@ -11,14 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('combo_options', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->enum('role', ['mesero', 'admin', 'cajero']);
-            $table->rememberToken();
+            $table->foreignId('combo_id')->constrained('products')->onDelete('cascade');
+            $table->string('step_name', 100);
+            $table->foreignId('option_product_id')->constrained('products')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -28,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('combo_options');
     }
 };
