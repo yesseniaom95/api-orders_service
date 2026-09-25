@@ -9,15 +9,31 @@ class Product extends Model
 {
     use HasFactory;
 
-    protected $keyType = 'string';
+    protected $keyType = 'int';
     protected $table = 'orders_service.products';
     
 
     protected $fillable = [
+        'category_id',
         'name',
         'description',
         'price',
-        'stock',
-        'category_id'
+        'is_available',
+        'is_combo',
+        'tracks_stock',
+        'current_stock',
     ];
+
+    protected $casts = [
+        'price'         => 'decimal:2',
+        'is_available'  => 'boolean',
+        'is_combo'      => 'boolean',
+        'tracks_stock'  => 'boolean',
+        'current_stock' => 'integer',
+    ];
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'category_id');
+    }
 }

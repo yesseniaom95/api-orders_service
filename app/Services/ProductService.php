@@ -7,8 +7,8 @@ use PhpParser\Node\Expr\PreDec;
 
 class ProductService 
 {
-    public function listProducts(){
-        return Product::all();
+    public function listProducts(int $perPage = 15){
+        return Product::with('category')->paginate($perPage);
     }
 
     public function createProduct( array $data){

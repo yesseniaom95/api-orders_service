@@ -12,13 +12,12 @@ class ProductsController extends Controller
         private ProductService $productService
     ) {}
 
-    public function listProducts()
+    public function listProducts(Request $request)
     {
-        $products = $this->productService->listProducts();
+        $perPage = $request->query('per_page', 15);
+        $products = $this->productService->listProducts($perPage);
 
-        return response()->json([
-            'products' => $products
-        ]);
+        return response()->json([$products], 200);
     }
 
     public function createProduct(ProductRequest $request)

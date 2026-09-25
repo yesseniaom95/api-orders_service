@@ -25,7 +25,9 @@ class CategoriesController extends Controller
         ], 200);
     }
 
-    public function listCategory(){
+    public function listCategory(Request $request){
+
+        $per_page = $request->query('per_page', 15);
 
         $category = $this->categoryService->listCategory();
 

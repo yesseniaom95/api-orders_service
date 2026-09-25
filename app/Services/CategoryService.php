@@ -17,8 +17,8 @@ class CategoryService{
         return $category;
     }
 
-    public function listCategory(){
-        return Category::all();
+    public function listCategory(int $per_page = 15){
+        return Category::paginate($per_page);
     }
 
     public function categoryDetails(string $id_category ){

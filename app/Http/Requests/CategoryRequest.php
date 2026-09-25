@@ -27,7 +27,7 @@ class CategoryRequest extends FormRequest
             'icon'          => ['required', 'string', 'min:5', 'max:50'],
             'sort_order'    => ['required', 'integer', 'min:1']
         ];
-    }
+    } 
 
     public function messages()
     {
