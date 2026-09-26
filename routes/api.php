@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\OrdersController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\TablesController;
 use Illuminate\Support\Facades\Route;
@@ -55,6 +56,7 @@ Route::middleware(['auth:sanctum', 'throttle:api'])->group(function () {
         // Mesas (Escritura)
         Route::post('/tables', [TablesController::class, 'createTables']);
         Route::put('/tables/{id}', [TablesController::class, 'updateTable']);
+        Route::post('/orders', [OrdersController::class, 'createOrder']);
     });
 
 });
