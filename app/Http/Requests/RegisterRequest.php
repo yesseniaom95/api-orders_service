@@ -25,8 +25,8 @@ class RegisterRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'unique:users,email'],
-            'password' => ['required', 'string', 'min:8', 'max:20', 'confirmed'],
-            'role'     => ['required', Rule::in(['mesero', 'admin', 'cajero'])],
+            'password' => ['required', 'string', 'min:8', 'max:20'],
+            'role'     => ['required', Rule::in(['mesero', 'admin', 'cajero', 'cocinero'])],
         ];
     }
 
@@ -43,7 +43,6 @@ class RegisterRequest extends FormRequest
             'password.required'     => 'La contraseña es obligatoria.',
             'password.min'          => 'La contraseña debe tener :min caracteres',
             'password.max'          => 'la contraseña no puede superar los :max caracteres.',
-            'password.confirmed'    => 'La confirmación de la contraseña no coincide',
 
             'role.in'               => 'El rol seleccionado no es válido. Debe ser: mesero, admin o cajero.',
 

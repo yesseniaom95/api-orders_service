@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Events\OrderCreatedEvent;
 use App\Models\Additions;
 use App\Models\Order;
 use App\Models\Product;
@@ -19,7 +20,7 @@ class OrderService
      */
     public function createOrder(array $data, ?int $userId = null): Order
     {
-        return DB::transaction(function () use ($data, $userId) {
+        $order =  DB::transaction(function () use ($data, $userId) {
             
             // 1. Crear la orden principal
             $order = Order::create([
@@ -49,7 +50,9 @@ class OrderService
                 // 3. Procesar adiciones por ítem
                 if (!empty($itemData['additions'])) {
                     foreach ($itemData['additions'] as $additionData) {
-                        $addition = Additions::findOrFail($additionData['addition_id']);
+                        $addition = Additions::where('id', $additionData['id'])
+                            ->where('product_id', $product->id)
+                            ->firstOrFail();
                         
                         $orderItem->itemAdditions()->create([
                             'addition_id'      => $addition->id,
@@ -71,5 +74,9 @@ class OrderService
 
             return $order;
         });
+
+        event(new OrderCreatedEvent($order));
+
+        return $order;
     }
 }

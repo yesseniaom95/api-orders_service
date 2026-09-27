@@ -16,4 +16,9 @@ class OrderItemAddition extends Model
         'addition_id',
         'additional_price',
     ];
+
+    public function addition()
+    {
+        return $this->belongsTo(Additions::class, 'addition_id');
+    }
 }

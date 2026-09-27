@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\OrdersRequest;
 use App\Models\Additions;
 use App\Models\Order;
 use App\Models\Product;
@@ -20,7 +21,7 @@ class OrdersController extends Controller
         $this->orderService = $orderService;
     }
 
-    public function createOrder(Request $request)
+    public function createOrder(OrdersRequest $request)
     {
         // Pasa los datos validados del request al servicio
         $order = $this->orderService->createOrder(

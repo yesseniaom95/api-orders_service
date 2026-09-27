@@ -13,8 +13,8 @@ class Additions extends Model
     public $incrementing = true;
 
     protected $fillable = [
-        'order_item_id',
-        'addition_id',
+        'product_id',
+        'name',
         'additional_price',
     ];
 }

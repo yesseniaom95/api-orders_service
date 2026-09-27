@@ -18,6 +18,11 @@ class OrderItem extends Model
         'status',
     ];
 
+    public function product()
+    {
+        return $this->belongsTo(Product::class, 'product_id');
+    }
+
     public function itemAdditions(): HasMany
     {
         return $this->hasMany(OrderItemAddition::class, 'order_item_id');
