@@ -17,4 +17,11 @@ class Category extends Model
         'icon',
         'sort_order'
     ];
+
+
+    public function products()
+    {
+        return $this->hasMany(Product::class, 'category_id')
+                    ->where('is_available', 1);
+    }
 }

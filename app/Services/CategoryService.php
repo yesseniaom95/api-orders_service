@@ -18,7 +18,14 @@ class CategoryService{
     }
 
     public function listCategory(int $per_page = 15){
-        return Category::paginate($per_page);
+        return Category::with([
+            
+            'products.comboOptions'=> function ($query){
+                $query->select('id', 'step_name', 'combo_id', 'option_product_id');
+            },
+            'products.comboOptions.optionProduct' => function ($query) {
+                $query->select('id', 'name');
+        }])->paginate($per_page);
     }
 
     public function categoryDetails(string $id_category ){

@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\AdditionsController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\ComboOptionsController;
 use App\Http\Controllers\OrdersController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\TablesController;
@@ -57,6 +59,14 @@ Route::middleware(['auth:sanctum', 'throttle:api'])->group(function () {
         Route::post('/tables', [TablesController::class, 'createTables']);
         Route::put('/tables/{id}', [TablesController::class, 'updateTable']);
         Route::post('/orders', [OrdersController::class, 'createOrder']);
+
+        //Adiciones
+        Route::post('/additions', [AdditionsController::class, 'createAdditions']);
+
+        //Combo
+        Route::post('/combo-options', [ComboOptionsController::class, 'createCombo']);
+        Route::put('/combo-options/{id}', [ComboOptionsController::class, 'updateCombo']);
+        Route::get('/combo-options', [ComboOptionsController::class, 'listCombo']);//PENDIENTE DE VALIDAR
     });
 
 });
