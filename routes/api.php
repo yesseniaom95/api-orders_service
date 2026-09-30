@@ -29,7 +29,7 @@ Route::middleware(['auth:sanctum', 'throttle:api'])->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
 
     // Permisos para personal operativo: Admin, Mesero y Cajero
-    Route::middleware('role:admin|mesero|cajero')->group(function () {
+    Route::middleware('role:admin|mesero|cajero|cocinero')->group(function () {
         
         // Productos (Lectura)
         Route::get('/products', [ProductsController::class, 'listProducts']);
@@ -42,7 +42,11 @@ Route::middleware(['auth:sanctum', 'throttle:api'])->group(function () {
         // Mesas (Lectura)
         Route::get('/tables', [TablesController::class, 'listTables']);
         Route::get('/tables/{id}', [TablesController::class, 'tableDetails']);
+
+        //listar las ordenes para el rol de cocina.
+        Route::get('/orders-list', [OrdersController::class, 'listOrders']);
     });
+
 
     // Permisos exclusivos de Administración
     Route::middleware('role:admin')->group(function () {
@@ -59,15 +63,17 @@ Route::middleware(['auth:sanctum', 'throttle:api'])->group(function () {
         // Mesas (Escritura)
         Route::post('/tables', [TablesController::class, 'createTables']);
         Route::put('/tables/{id}', [TablesController::class, 'updateTable']);
-        Route::post('/orders', [OrdersController::class, 'createOrder']);
 
+        //Ordenes
+        Route::post('/orders', [OrdersController::class, 'createOrder']);
+    
         //Adiciones
         Route::post('/additions', [AdditionsController::class, 'createAdditions']);
 
         //Combo
         Route::post('/combo-options', [ComboOptionsController::class, 'createCombo']);
         Route::put('/combo-options/{id}', [ComboOptionsController::class, 'updateCombo']);
-        Route::get('/combo-options', [ComboOptionsController::class, 'listCombo']);//PENDIENTE DE VALIDAR
+        Route::get('/combo-options', [ComboOptionsController::class, 'listCombo']);
     
         //User
         Route::get('/user-list', [UserController::class, 'listUser']);

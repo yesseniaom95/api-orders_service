@@ -35,4 +35,14 @@ class OrdersController extends Controller
             'total_amount' => $order->total_amount
         ], 201);
     }
+
+    public function listOrders(){
+
+        $order = $this->orderService->listOrders();
+
+        return response()->json(
+            [
+                $order
+            ], 200);
+    }
 }

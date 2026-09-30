@@ -7,6 +7,7 @@ use App\Models\Additions;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\Table;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class OrderService
@@ -78,5 +79,12 @@ class OrderService
         event(new OrderCreatedEvent($order));
 
         return $order;
+    }
+
+    public function listOrders(int $perPage = 15)
+    {
+        return Order::whereDate('ordered_at', Carbon::today())
+        ->orderBy('ordered_at', 'asc')
+        ->paginate($perPage);
     }
 }
