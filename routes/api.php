@@ -7,6 +7,7 @@ use App\Http\Controllers\ComboOptionsController;
 use App\Http\Controllers\OrdersController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\TablesController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -67,6 +68,11 @@ Route::middleware(['auth:sanctum', 'throttle:api'])->group(function () {
         Route::post('/combo-options', [ComboOptionsController::class, 'createCombo']);
         Route::put('/combo-options/{id}', [ComboOptionsController::class, 'updateCombo']);
         Route::get('/combo-options', [ComboOptionsController::class, 'listCombo']);//PENDIENTE DE VALIDAR
+    
+        //User
+        Route::get('/user-list', [UserController::class, 'listUser']);
+        Route::post('/register-user', [UserController::class, 'registerUser']);
+    
     });
 
 });
