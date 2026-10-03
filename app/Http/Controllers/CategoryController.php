@@ -8,7 +8,7 @@ use App\Services\CategoryService;
 use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\Request;
 
-class CategoriesController extends Controller
+class CategoryController extends Controller
 {
 
     public function __construct(

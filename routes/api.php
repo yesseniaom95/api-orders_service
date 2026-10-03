@@ -1,13 +1,15 @@
 <?php
 
-use App\Http\Controllers\AdditionsController;
+use App\Http\Controllers\AdditionController;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ComboOptionsController;
-use App\Http\Controllers\OrdersController;
-use App\Http\Controllers\ProductsController;
-use App\Http\Controllers\TablesController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\OrderItemController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\TableController;
 use App\Http\Controllers\UserController;
+use App\Models\OrderItem;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -32,19 +34,28 @@ Route::middleware(['auth:sanctum', 'throttle:api'])->group(function () {
     Route::middleware('role:admin|mesero|cajero|cocinero')->group(function () {
         
         // Productos (Lectura)
-        Route::get('/products', [ProductsController::class, 'listProducts']);
-        Route::get('/products/{id}', [ProductsController::class, 'productDetails']);
+        
+        Route::get('/products/{id}', [ProductController::class, 'productDetails']);
 
         // Categorías (Lectura)
-        Route::get('/categories', [CategoriesController::class, 'listCategory']);
-        Route::get('/categories/{id}', [CategoriesController::class, 'categoryDetails']);
+        Route::get('/categories', [CategoryController::class, 'listCategory']);
+        Route::get('/categories/{id}', [CategoryController::class, 'categoryDetails']);
 
         // Mesas (Lectura)
-        Route::get('/tables', [TablesController::class, 'listTables']);
-        Route::get('/tables/{id}', [TablesController::class, 'tableDetails']);
+        Route::get('/tables', [TableController::class, 'listTables']);
+        Route::get('/tables/{id}', [TableController::class, 'tableDetails']);
+
+        //Crear orden
+        Route::post('/orders', [OrderController::class, 'createOrder']);
 
         //listar las ordenes para el rol de cocina.
-        Route::get('/orders-list', [OrdersController::class, 'listOrders']);
+        Route::get('/orders-list', [OrderController::class, 'listOrders']);
+
+        //Actualiza el estado desde el rol de cocina. Id es el identificador de la orden.
+        Route::put('/update-order/{id}', [OrderController::class, 'inPreparation']);
+
+        //Actualiza el estado de la order-item.
+        Route::put('/update-order-item/{id}/{id_item}', [OrderItemController::class, 'updateStatus']);
     });
 
 
@@ -52,23 +63,24 @@ Route::middleware(['auth:sanctum', 'throttle:api'])->group(function () {
     Route::middleware('role:admin')->group(function () {
 
         // Productos (Escritura / Eliminación)
-        Route::post('/products', [ProductsController::class, 'createProduct']);
-        Route::put('/products/{id}', [ProductsController::class, 'updateProduct']);
-        Route::delete('/products/{id}', [ProductsController::class, 'deleteProduct']);
+        Route::post('/products', [ProductController::class, 'createProduct']);
+        Route::put('/products/{id}', [ProductController::class, 'updateProduct']);
+        Route::delete('/products/{id}', [ProductController::class, 'deleteProduct']);
+
+        //Lista todos los productos del rol administrador.
+        Route::get('/products', [ProductController::class, 'listProducts']);
 
         // Categorías (Escritura)
-        Route::post('/categories', [CategoriesController::class, 'createCategory']);
-        Route::put('/categories/{id}', [CategoriesController::class, 'updateCategory']);
+        Route::post('/categories', [CategoryController::class, 'createCategory']);
+        Route::put('/categories/{id}', [CategoryController::class, 'updateCategory']);
 
         // Mesas (Escritura)
-        Route::post('/tables', [TablesController::class, 'createTables']);
-        Route::put('/tables/{id}', [TablesController::class, 'updateTable']);
+        Route::post('/tables', [TableController::class, 'createTables']);
+        Route::put('/tables/{id}', [TableController::class, 'updateTable']);
 
-        //Ordenes
-        Route::post('/orders', [OrdersController::class, 'createOrder']);
-    
         //Adiciones
-        Route::post('/additions', [AdditionsController::class, 'createAdditions']);
+        Route::post('/additions', [AdditionController::class, 'createAdditions']);
+        Route::put('/update-addition/{id}', [AdditionController::class, 'updateAddition']);
 
         //Combo
         Route::post('/combo-options', [ComboOptionsController::class, 'createCombo']);

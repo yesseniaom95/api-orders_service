@@ -7,7 +7,7 @@ use App\Services\TableService;
 use Illuminate\Http\Request;
 use PhpParser\Node\Expr\FuncCall;
 
-class TablesController extends Controller
+class TableController extends Controller
 {
 
     public function __construct(

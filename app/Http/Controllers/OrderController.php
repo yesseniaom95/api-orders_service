@@ -11,7 +11,7 @@ use App\Services\OrderService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class OrdersController extends Controller
+class OrderController extends Controller
 {
     
     protected OrderService $orderService;
@@ -44,5 +44,19 @@ class OrdersController extends Controller
             [
                 $order
             ], 200);
+    }
+
+    /**
+     * Cambia el estado de una orden a "en preparación".
+     *
+     * Delega la lógica de negocio al servicio de órdenes y retorna la orden actualizada.
+     *
+     * @param string $order_id Identificador único de la orden.
+     */
+    public function inPreparation(string $order_id)
+    {
+        $order = $this->orderService->inPreparation($order_id);
+
+        return $order;
     }
 }

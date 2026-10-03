@@ -18,7 +18,7 @@ return new class extends Migration
             $table->unsignedInteger('quantity')->default(1);
             $table->decimal('unit_price', 10, 2);
             $table->string('kitchen_notes', 255)->nullable();
-            $table->enum('status', ['pendiente', 'en_preparacion', 'entregado'])->default('pendiente');
+            $table->enum('status', ['pendiente', 'en_preparacion','listo','entregado','cancelado'])->default('pendiente');
             $table->timestamps();
         });
     }

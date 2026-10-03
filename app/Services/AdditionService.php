@@ -4,7 +4,7 @@ namespace App\Services;
 
 use App\Models\Additions;
 
-class AdditionsService
+class AdditionService
 {
     public function createAdditions(array $data)
     {
@@ -15,6 +15,13 @@ class AdditionsService
                 'product_id'        => $data['product_id']
             ]);
         
+        return $addition;
+    }
+
+    public function updateAddition(array $data, string $addition_id){
+        $addition = Additions::findOrFail($addition_id);
+        $addition->update($data);
+
         return $addition;
     }
 }

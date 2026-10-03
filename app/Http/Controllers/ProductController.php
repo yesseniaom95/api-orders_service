@@ -6,12 +6,17 @@ use App\Http\Requests\ProductRequest;
 use App\Services\ProductService;
 use Illuminate\Http\Request;
 
-class ProductsController extends Controller
+class ProductController extends Controller
 {
     public function __construct(
         private ProductService $productService
     ) {}
 
+
+    /*Lista los todos los productos desde el rol administrador.
+    *
+    *Delega la lógica del negocio al servicio de ProductService
+    */
     public function listProducts(Request $request)
     {
         $perPage = $request->query('per_page', 15);
